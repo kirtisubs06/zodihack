@@ -16,7 +16,7 @@ def main():
     st.title("ZodiHack")
 
     # Input form
-    name = st.text_input("Hey there! What's your name?")
+    name = st.text_input("Hey there! What's your name?", required=True)
     min_date = datetime(1900, 1, 1).date()
     max_date = date.today()
     birthdate = st.date_input(
