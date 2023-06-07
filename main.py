@@ -31,47 +31,45 @@ def main():
 
 def llm_responses(llm, birthdate):
     response = llm(f"You are an expert astrologer. Your job is to identify the zodiac sign based on a birthdate"
-                   f"and list the personality traits of that zodiac sign."
+                   f"and list the personality traits of that zodiac sign and find the Chinese zodiac animal based "
+                   f"on the birthdate along with its corresponding traits."
                    f"Birthdate: {birthdate}"
                    f"Your response should be in the following format:"
-                   f"Zodiac: [zodiac sign]"
+                   f"Zodiac: [zodiac sign based on the birthdate]"
                    f"[insert a line break here]"
-                   f"Traits: [traits of that zodiac sign, comma separated]")
+                   f"Zodiac Traits: [traits of that zodiac sign, comma separated]"
+                   f"Zodiac Animal: [spirit animal based on the birthdate]"
+                   f"[insert a line break here]"
+                   f"Zodiac Animal Traits: [traits of that spirit animal, comma separated]")
     # Extract the zodiac sign
     zodiac_start_index = response.index("Zodiac: ") + len("Zodiac: ")
     zodiac_end_index = response.index("\n", zodiac_start_index)
     zodiac = response[zodiac_start_index:zodiac_end_index].strip()
 
     # Extract the traits
-    traits_start_index = response.index("Traits: ") + len("Traits: ")
-    traits = response[traits_start_index:].strip()
+    traits_start_index = response.index("Zodiac Traits: ") + len("Zodiac Traits: ")
+    traits_end_index = response.index("\n", traits_start_index)
+    traits = response[traits_start_index:traits_end_index].strip()
 
     # Print the zodiac sign and traits
     st.markdown("<h3>Zodiac Sign</h3>", unsafe_allow_html=True)
     st.write(f"You are a **{zodiac}**!")
-    st.write("**Your traits:**")
+    st.write("**Your key traits:**")
     st.write(f"You are {traits}")
     st.write("\n")
 
-    response = llm(f"You are an expert astrologer. Your job is to identify the spirit animal based on a birthdate"
-                   f"and list the personality traits of that spirit animal."
-                   f"Birthdate: {birthdate}"
-                   f"Your response should be in the following format:"
-                   f"Spirit Animal: [spirit animal]"
-                   f"[insert a line break here]"
-                   f"Traits: [traits of that spirit animal, comma separated]")
-    # Extract the spirit animal
-    animal_start_index = response.index("Spirit Animal: ") + len("Spirit Animal: ")
+    # Extract the zodiac animal
+    animal_start_index = response.index("Zodiac Animal: ") + len("Zodiac Animal: ")
     animal_end_index = response.index("\n", animal_start_index)
     animal = response[animal_start_index:animal_end_index].strip()
 
     # Extract the traits
-    traits_start_index = response.index("Traits: ") + len("Traits: ")
+    traits_start_index = response.index("Zodiac Animal Traits: ") + len("Zodiac Animal Traits: ")
     traits = response[traits_start_index:].strip()
 
-    # Print the Spirit Animals and traits
-    st.write("<h3>Spirit Animal</h3>", unsafe_allow_html=True)
-    st.write(f"Your spirit animal is a **{animal}**!")
+    # Print the zodiac Animals and traits
+    st.write("<h3>Zodiac Animal</h3>", unsafe_allow_html=True)
+    st.write(f"Your zodiac animal is a **{animal}**!")
     st.write(f"You are {traits}")
 
 
